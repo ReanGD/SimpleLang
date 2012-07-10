@@ -1,0 +1,7 @@
+/bin/*
+!/bin/KEEPME
+/obj/*
+!/obj/KEEPME
+/external/*
+!/external/KEEPME
+/*.sublime*

@@ -1,0 +1,15 @@
+DEFS     := "-D _WIN32"
+CFLAGS   := "-Os"
+LCFLAGS  := "-shared"
+SRC      := "antlr/src"
+LIBS     := Ws2_32
+OUTNAME  := antlr.dll
+TMPDIR   := AntLR
+MAKEFLAG := --no-print-directory
+all: run
+
+run:
+	@mkdir -p bin
+	@mkdir -p obj
+	@mkdir -p obj/$(TMPDIR)	
+	@make --directory=./obj/$(TMPDIR) --makefile=../../makefile BUILD_CFLAGS=$(CFLAGS) BUILD_LCFLAGS=$(LCFLAGS) BUILD_DEFS=$(DEFS) BUILD_SRC=$(SRC) BUILD_LIBS=$(LIBS) BUILD_CPP=0 program_name=../../bin/$(OUTNAME) $(MAKEFLAG)

@@ -1,0 +1,13 @@
+JAVA      := "C:/Program Files (x86)/Java/jre7/bin/java.exe"
+ANTLR     := ./external/antlr-3.4-complete.jar
+GRAMMADIR := src
+OUTDIR    := src/gen
+
+g_files = $(wildcard $(GRAMMADIR)/*.g)
+t_files = $(patsubst $(GRAMMADIR)/%.g,$(OUTDIR)/%.tokens,$(g_files))
+
+all: $(t_files)
+	@true
+
+$(OUTDIR)/%.tokens: $(GRAMMADIR)/%.g
+	$(JAVA) -jar $(ANTLR) -o $(OUTDIR) $<

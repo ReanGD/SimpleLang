@@ -1,0 +1,20 @@
+DEFS     := 
+CFLAGS   := "-Os -Wall -Wno-unknown-pragmas"
+LCFLAGS  := "-static-libgcc -static-libstdc++"
+SRC      := ". gen"
+LIBS     := antlr
+OUTNAME  := simpleL.exe
+TMPDIR   := Release
+MAKEFLAG := --no-print-directory
+
+all: run
+
+run:
+	@mkdir -p bin
+	@mkdir -p obj
+	@mkdir -p obj/$(TMPDIR)	
+	@make --makefile=./generate $(MAKEFLAG)
+	@make --makefile=./rename $(MAKEFLAG)
+	@make --makefile=./antlr32 $(MAKEFLAG)
+	@make --directory=./obj/$(TMPDIR) --makefile=../../makefile BUILD_CFLAGS=$(CFLAGS) BUILD_LCFLAGS=$(LCFLAGS) BUILD_DEFS=$(DEFS) BUILD_SRC=$(SRC) BUILD_LIBS=$(LIBS) BUILD_CPP=1 program_name=../../bin/$(OUTNAME) $(MAKEFLAG)
+	@make --directory=./bin/ --makefile=../runtest program_name=$(OUTNAME) $(MAKEFLAG)

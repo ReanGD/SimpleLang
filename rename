@@ -1,0 +1,10 @@
+GENDIR    := src/gen
+
+c_files = $(wildcard $(GENDIR)/*.c)
+cpp_files = $(c_files:.c=.cpp)
+
+all: $(cpp_files)
+	@true
+
+$(GENDIR)/%.cpp: $(GENDIR)/%.c
+	@mv $< $@
